@@ -57,90 +57,72 @@
             const calcBtn = document.getElementById('calc');
             const clearBtn = document.getElementById('clear');
             const outDiv = document.getElementById('out');
-
             function parseNumber(s) {
                 if (typeof s !== 'string') return NaN;
                 s = s.replace(',', '.').trim();
                 const v = Number(s);
                 return Number.isFinite(v) ? v : NaN;
             }
-
             calcBtn.addEventListener('click', () => {
                 const xVal = parseNumber(xInput.value);
                 const mVal = Math.floor(Number(mInput.value));
-
                 if (!Number.isFinite(xVal)) {
                     outDiv.innerHTML = '<div class="error">Ошибка: введите корректное число x.</div>';
                     return;
                 }
-
                 if (!Number.isInteger(mVal) || mVal < 1) {
                     outDiv.innerHTML = '<div class="error">Ошибка: m должно быть целым числом ≥ 1.</div>';
                     return;
                 }
-
                 if (!(xVal > -1 && xVal <= 1)) {
                     outDiv.innerHTML = '<div class="error">Ошибка: область сходимости -1 &lt; x ≤ 1. Укажите x в этом интервале.</div>';
                     return;
                 }
-
                 let S = 0;
-
                 for (let k = 1; k <= mVal; k++) {
                     const term = Math.pow(xVal, k) / k;
                     const signedTerm = (k % 2 === 1) ? term : -term;
                     S += signedTerm;
                 }
-
                 const exact = Math.log1p(xVal);
                 const absErr = Math.abs(exact - S);
                 const relErr = Math.abs(exact) > 1e-10 ? absErr / Math.abs(exact) : 0;
-
                 const nextTermBound = Math.abs(Math.pow(xVal, mVal + 1) / (mVal + 1));
-
                 let html = `
-                    <div class="value-row">
-                        <span class="value-label">x =</span>
-                        <span class="value-data">${xVal}</span>
-                    </div>
-                    <div class="value-row">
-                        <span class="value-label">m =</span>
-                        <span class="value-data">${mVal}</span>
-                    </div>
-                    
-                    <div class="divider"></div>
-                    
-                    <div class="value-row">
-                        <span class="value-label">S<sub>m</sub>(x) =</span>
-                        <span class="value-data">${S.toFixed(10)}</span>
-                    </div>
-                    <div class="value-row">
-                        <span class="value-label">Точное ln(1+x) =</span>
-                        <span class="value-data">${exact.toFixed(10)}</span>
-                    </div>
-                    
-                    <div class="divider"></div>
-                    
-                    <div class="value-row">
-                        <span class="value-label">Абсолютная погрешность =</span>
-                        <span class="value-data">${absErr.toExponential(6)}</span>
-                    </div>
-                    <div class="value-row">
-                        <span class="value-label">Относительная погрешность =</span>
-                        <span class="value-data">${relErr.toExponential(6)}</span>
-                    </div>
-                    
-                    <div class="divider"></div>
-                    
-                    <div class="value-row">
-                        <span class="value-label">Оценка остатка ≤</span>
-                        <span class="value-data">${nextTermBound.toExponential(6)}</span>
-                    </div>
-                `;
-
+        <div class="value-row">
+            <span class="value-label">x =</span>
+            <span class="value-data">${xVal}</span>
+        </div>
+        <div class="value-row">
+            <span class="value-label">m =</span>
+            <span class="value-data">${mVal}</span>
+        </div>
+        <div class="divider"></div>
+        <div class="value-row">
+            <span class="value-label">S<sub>m</sub>(x) =</span>
+            <span class="value-data">${S.toFixed(10)}</span>
+        </div>
+        <div class="value-row">
+            <span class="value-label">Точное ln(1+x) =</span>
+            <span class="value-data">${exact.toFixed(10)}</span>
+        </div>
+        <div class="divider"></div>
+        <div class="value-row">
+            <span class="value-label">Абсолютная погрешность =</span>
+            <span class="value-data">${absErr.toExponential(6)}</span>
+        </div>
+        <div class="value-row">
+            <span class="value-label">Относительная погрешность =</span>
+            <span class="value-data">${relErr.toExponential(6)}</span>
+        </div>
+        <div class="divider"></div>
+        <div class="value-row">
+            <span class="value-label">Оценка остатка ≤</span>
+            <span class="value-data">${nextTermBound.toExponential(6)}</span>
+        </div>
+    `;
                 outDiv.innerHTML = html;
             });
-
             clearBtn.addEventListener('click', () => {
                 xInput.value = '';
                 mInput.value = '';

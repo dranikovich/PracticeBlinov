@@ -74,14 +74,11 @@
                 if (nums.some(v => Number.isNaN(v))) return null;
                 return nums;
             }
-
             calcBtn.addEventListener('click', () => {
                 const aStr = vecAInput.value;
                 const bStr = pointBInput.value;
-
                 const a = parseList(aStr);
                 const b = parseList(bStr);
-
                 if (!a || !b) {
                     outputDiv.innerHTML = '<div class="error">Ошибка: неверный формат ввода. Используйте числа через запятую.</div>';
                     return;
@@ -90,13 +87,11 @@
                     outputDiv.innerHTML = '<div class="error">Ошибка: размерности не совпадают. Вектор a и точка B должны иметь одинаковую размерность.</div>';
                     return;
                 }
-
                 const A = a.map((ai, i) => {
                     const yi = b[i];
                     const val = yi - ai;
                     return (Object.is(val, -0) ? 0 : Number((Math.round((val + Number.EPSILON) * 1e12) / 1e12).toString()));
                 });
-
                 outputDiv.innerHTML = `
                     <div class="value-row">
                         <span class="value-label">Размерность:</span>
@@ -109,7 +104,6 @@
                     </div>
                 `;
             });
-
             clearBtn.addEventListener('click', () => {
                 vecAInput.value = '';
                 pointBInput.value = '';
