@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Практика - Блинов С.А.</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+<body>
+    <div class="container menu-container">
+        <h1>Математические приложения</h1>
+        <p class="welcome-text">Выберите одно из приложений для работы с математическими вычислениями</p>
+        
+        <div class="app-card">
+            <h2 class="app-title">Нахождение начала вектора</h2>
+            <p class="app-description">
+                Вычисление координат начальной точки вектора по известным компонентам вектора 
+                и координатам конечной точки. Формула: A = B - a
+            </p>
+            <a href="zadacha1.html" class="app-link">Перейти к приложению</a>
+        </div>
+        
+        <div class="app-card">
+            <h2 class="app-title">Транспонирование матрицы</h2>
+            <p class="app-description">
+                Преобразование матрицы путем замены строк на столбцы. 
+                Формула: Aᵀ[i][j] = A[j][i]. Автоматическое создание матрицы при изменении размерности.
+            </p>
+            <a href="zadacha2.html" class="app-link">Перейти к приложению</a>
+        </div>
+        
+        <div class="app-card">
+            <h2 class="app-title">Частичная сумма ряда ln(1+x)</h2>
+            <p class="app-description">
+                Вычисление частичной суммы ряда Тейлора для функции натурального логарифма. 
+                Ряд: ln(1+x) = x - x²/2 + x³/3 - x⁴/4 + ... (сходится при -1 < x ≤ 1)
+            </p>
+            <a href="zadacha3.html" class="app-link">Перейти к приложению</a>
+        </div>
+        
+        <div class="button-group" style="margin-top: 40px;">
+            <button onclick="showInstructions()" class="btn-secondary">Инструкция</button>
+            <button onclick="showAbout()" class="btn-primary">О проекте</button>
+        </div>
+        
+        <div id="instructions" class="result-section" style="display: none; margin-top: 30px;">
+            <div class="result-title">Инструкция по использованию</div>
+            <div class="result-content">
+                <p><strong>1. Нахождение начала вектора:</strong></p>
+                <p>Введите компоненты вектора и координаты конечной точки через запятую</p>
+                
+                <p><strong>2. Транспонирование матрицы:</strong></p>
+                <p>Задайте размерность матрицы и введите значения элементов</p>
+                
+                <p><strong>3. Частичная сумма ряда:</strong></p>
+                <p>Введите значение x в интервале (-1; 1] и количество членов ряда</p>
+            </div>
+        </div>
+        
+        <div id="about" class="result-section" style="display: none; margin-top: 30px;">
+            <div class="result-title">О проекте</div>
+            <div class="result-content">
+                <p>Набор математических приложений для образовательных целей</p>
+                <p>Включает три инструмента для работы с:</p>
+                <ul style="text-align: left; margin-left: 20px;">
+                    <li>Векторными вычислениями</li>
+                    <li>Операциями с матрицами</li>
+                    <li>Вычислением рядов</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function showInstructions() {
+            document.getElementById('instructions').style.display = 'block';
+            document.getElementById('about').style.display = 'none';
+        }
+        
+        function showAbout() {
+            document.getElementById('about').style.display = 'block';
+            document.getElementById('instructions').style.display = 'none';
+        }
+        
+        document.addEventListener('click', function(event) {
+            const instructions = document.getElementById('instructions');
+            const about = document.getElementById('about');
+            
+            if (!event.target.closest('#instructions') && !event.target.closest('.btn-secondary')) {
+                instructions.style.display = 'none';
+            }
+            
+            if (!event.target.closest('#about') && !event.target.closest('.btn-primary')) {
+                about.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
